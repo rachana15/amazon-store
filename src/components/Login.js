@@ -1,13 +1,23 @@
 import React, { useState } from "react";
 import "../style/css/Login.css";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { auth } from "../firebase";
+import firebase from "firebase";
 
 function Login() {
+  const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const signIn = e => {
     e.preventDefault();
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then(auth => {
+        if (auth) {
+          history.push("/");
+        }
+      })
+      .catch(error => alert(error.message));
   };
 
   const register = e => {
@@ -17,10 +27,28 @@ function Login() {
       .createUserWithEmailAndPassword(email, password)
       .then(auth => {
         //successfully created a new user with email and password
-        console.log(auth);
+        if (auth) {
+          history.push("/");
+        }
       })
       .catch(error => alert(error.message));
   };
+  const facebookSigin = e => {
+    var provider = new firebase.auth.FacebookAuthProvider();
+
+    provider.addScope("user_birthday");
+
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then(function(authData) {
+        console.log(authData);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  };
+
   return (
     <div className="login">
       <Link to="/">
