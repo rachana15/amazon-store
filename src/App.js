@@ -7,9 +7,16 @@ import { auth } from "./firebase";
 import Checkout from "./components/Checkout";
 import Login from "./components/Login";
 import { useStatevalue } from "./Data Layer/StateProvider";
+import Payment from "./components/Payment";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+
+
+const promise = loadStripe("pk_test_4y9Fuug7CPBjAbHjj3ibYU3J00DY7VOMK6");
 
 function App() {
   const [{ user }, dispatch] = useStatevalue();
+  
   useEffect(() => {
     auth.onAuthStateChanged(authUser => {
       console.log("the user is ----> ", authUser);
@@ -32,6 +39,12 @@ function App() {
     <Router>
       <div className="app">
         <Switch>
+          <Route path="/payment">
+            <Header />
+            <Elements stripe={promise}>
+              <Payment />
+            </Elements>
+          </Route>
           <Route path="/login">
             <Login />
           </Route>

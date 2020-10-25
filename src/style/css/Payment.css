@@ -1,0 +1,30 @@
+.payment {
+  background-color: white;
+}
+
+.payment__container {
+  width: 70%;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.payment__container > h2 {
+  margin-bottom: 10px;
+}
+.payment__section {
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  display: flex;
+  padding: 20px;
+}
+
+.payment__title {
+  flex: 0.2;
+}
+
+.payment__adreess,
+.payment__items,
+.payment__details {
+  flex: 0.8;
+}
