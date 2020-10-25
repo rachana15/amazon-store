@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import "../style/css/Payment.css";
 import { useStatevalue } from "../Data Layer/StateProvider";
 import CheckoutProduct from "./CheckoutProduct";
-import { Link } from "react-router-dom";
 import CurrencyFormat from "react-currency-format";
 import { getBasketTotal } from "../Data Layer/reducer";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { useHistory } from "react-router-dom";
 import axios from "../axios";
+import { db } from "../firebase";
+
 function Payment() {
   const [{ basket, user }, dispatch] = useStatevalue();
   const stripe = useStripe();
@@ -41,11 +42,30 @@ function Payment() {
           card: elements.getElement(CardElement)
         }
       })
-      .then(({ payementIntent }) => {
+      .then(data => {
         //paymentIntent is payment confirmation
+
+        const payementIntent = data.paymentIntent;
+
+        // console.log("-------paymentIntent", data);
+
+        db.collection("users")
+          .doc(user?.uid)
+          .collection("orders")
+          .doc(payementIntent.id)
+          .set({
+            basket: basket,
+            amount: payementIntent.amount,
+            created: payementIntent.created
+          });
+        dispatch({
+          type: "EMPTY_BASKEY"
+        });
+
         setSucceeded(true);
         setError(null);
         setProcessing(false);
+
         history.replace("/orders");
       });
   };

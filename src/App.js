@@ -10,13 +10,13 @@ import { useStatevalue } from "./Data Layer/StateProvider";
 import Payment from "./components/Payment";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-
+import Orders from "./components/Orders";
 
 const promise = loadStripe("pk_test_4y9Fuug7CPBjAbHjj3ibYU3J00DY7VOMK6");
 
 function App() {
   const [{ user }, dispatch] = useStatevalue();
-  
+
   useEffect(() => {
     auth.onAuthStateChanged(authUser => {
       console.log("the user is ----> ", authUser);
@@ -53,8 +53,11 @@ function App() {
             <Home />
           </Route>
           <Route path="/checkout">
-            <Header />
             <Checkout />
+          </Route>
+          <Route path="/orders">
+            <Header />
+            <Orders />
           </Route>
         </Switch>
       </div>
