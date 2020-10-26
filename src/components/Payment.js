@@ -28,10 +28,11 @@ function Payment() {
       });
       setClientSecret(response.data.clientSecret);
     };
+
     getClientSecret();
   }, [basket]);
 
-  console.log("Secret is ---> ", clientSecret);
+  //   console.log("Secret is ---> ", clientSecret);
   //stripe funsctionality
   const handleSubmit = async event => {
     event.preventDefault();
@@ -126,6 +127,7 @@ function Payment() {
                   prefix={"$"}
                 />
                 <button
+                  class="stripe__button"
                   type="submit"
                   disabled={processing || disabled || succeeded}
                 >

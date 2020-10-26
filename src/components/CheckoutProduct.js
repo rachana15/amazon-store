@@ -2,8 +2,7 @@ import React from "react";
 import "../style/css/CheckoutProduct.css";
 import { useStatevalue } from "../Data Layer/StateProvider";
 
-
-function CheckoutProduct({ id, image, title, price, rating }) {
+function CheckoutProduct({ id, image, title, price, rating, hideButton }) {
   const [{ basket }, dispatch] = useStatevalue();
   const removeFromBasket = () => {
     dispatch({
@@ -13,30 +12,31 @@ function CheckoutProduct({ id, image, title, price, rating }) {
   };
   return (
     <div className="checkoutProduct">
-      
-        <img className="checkoutProduct__image" src={image} alt="img" />
-        <div className="checkoutProduct__info">
-          <p className="checkoutProduct__title">{title}</p>
-          <p className="checkoutProduct__price">
-            <strong>
-              <small>$</small> {price}
-            </strong>
-          </p>
-          <p className="checkoutProduct__rating">
-            {Array(rating)
-              .fill()
-              .map((_, i) => (
-                <p>⭐</p>
-              ))}
-          </p>
+      <img className="checkoutProduct__image" src={image} alt="img" />
+      <div className="checkoutProduct__info">
+        <p className="checkoutProduct__title">{title}</p>
+        <p className="checkoutProduct__price">
+          <strong>
+            <small>$</small> {price}
+          </strong>
+        </p>
+        <p className="checkoutProduct__rating">
+          {Array(rating)
+            .fill()
+            .map((_, i) => (
+              <p>⭐</p>
+            ))}
+        </p>
+        {!hideButton && (
           <button
             className="checkoutProduct__button"
             onClick={removeFromBasket}
           >
             Remove from Cart
           </button>
-        </div>
-      
+        )}
+        
+      </div>
     </div>
   );
 }

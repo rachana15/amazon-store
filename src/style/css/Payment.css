@@ -28,3 +28,19 @@
 .payment__details {
   flex: 0.8;
 }
+
+.stripe__button {
+  background: #f0c14b;
+  border: 1px solid;
+  border-radius: 3px;
+  margin-top: 10px;
+  color: #111;
+  cursor: pointer;
+  border-color: #a88734 #9c7e31 #846a29;
+  width: 30%;
+}
+
+.payment__details > form > div > h3 {
+  font-size: 16px;
+  margin-top: 6px;
+}

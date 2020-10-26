@@ -19,7 +19,7 @@ function App() {
 
   useEffect(() => {
     auth.onAuthStateChanged(authUser => {
-      console.log("the user is ----> ", authUser);
+      // console.log("the user is ----> ", authUser);
       if (authUser) {
         //user logged In
         dispatch({
@@ -53,6 +53,7 @@ function App() {
             <Home />
           </Route>
           <Route path="/checkout">
+            <Header />
             <Checkout />
           </Route>
           <Route path="/orders">
